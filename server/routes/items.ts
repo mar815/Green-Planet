@@ -1,17 +1,13 @@
 import express, { Request, Response } from 'express';
-// Import the Item model once it's defined
-// import Item from '../models/item';
+import itemsController from '../controllers/itemsController';
 
 const router = express.Router();
 
-router.get('/', async (req: Request, res: Response) => {
-  try {
-    // Get all items from the database
-    // const items = await Item.findAll();
-    // res.json(items);
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// Routes
+router.get('/', itemsController.getAllItems);
+router.post('/', itemsController.createItem);
+router.put('/:id', itemsController.updateItem);
+router.delete('/:id', itemsController.deleteItem);
+router.get('/:id', itemsController.getSingleItem);
 
 export default router;

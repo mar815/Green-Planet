@@ -1,6 +1,9 @@
+import { config } from 'dotenv';
+config();
+
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize(process.env.DATABASE_URL || '', {
+const sequelize = new Sequelize(process.env.DATABASE_URL!, {
   dialect: 'postgres',
   protocol: 'postgres',
   dialectOptions: {
@@ -10,5 +13,16 @@ const sequelize = new Sequelize(process.env.DATABASE_URL || '', {
     }
   }
 });
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log(
+      'Connection to the database has been established successfully.'
+    );
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 export default sequelize;
